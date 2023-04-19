@@ -9,7 +9,7 @@ module.exports = withMT({
   theme: {
     extend: {
       gridTemplateColumns: {
-        'grid4': 'repeat(auto-fit, minmax(300px, 1fr))'
+        'grid-04': 'repeat(auto-fit, minmax(min(100%, 15rem), 1fr))'
       }
     },
     screens: {
@@ -18,6 +18,7 @@ module.exports = withMT({
       'lg': { 'max': '1024px' },
       'md': { 'max': '768px' },
       'sm': { 'max': '640px' },
+      'xs': {'max': '475px'}
     },
 
 

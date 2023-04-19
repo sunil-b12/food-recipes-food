@@ -9,19 +9,36 @@ export const foodApi = createApi({
     }),
     endpoints:(builder) =>({
 
-        getRandomMeal: builder.query({
+        getMeal: builder.query({
             query:(recipes) => `${recipes}`,
-            params:{
-                key: 1
-            }
         }),
+        getSeaFood: builder.query({
+            query: (recipes)=>({
+                url: `${recipes}`,
+                params: {
+                  c: 'Seafood'
+                },
+            })
+          }), 
+          getDessert: builder.query({
+            query: (recipes)=>({
+                url: `${recipes}`,
+                params: {
+                  c: 'dessert'
+                },
+            })
+          }),
+          getCollectionFood: builder.query({
+            query: (recipes) =>({
+                url:`${recipes}`,
+                params:{
+                    i: 'chicken_breast'
+                }
 
-        
-        getFoodCatagory: builder.query({
-            query:(recipes) => `${recipes}`,
-        })
+            })
+          })
     })
 
 })
 
-export const {useGetFoodCatagoryQuery, useGetRandomMealQuery} = foodApi
+export const {useGetMealQuery, useGetSeaFoodQuery, useGetDessertQuery, useGetCollectionFoodQuery} = foodApi
