@@ -5,10 +5,10 @@ import { useNavigate } from 'react-router';
 import Error from './Error';
 
 
-export const Seafood = () => {
-  const { data, isLoading, isError } = useGetFilterByCatagoriesQuery('Seafood')
-  const nav = useNavigate()
+export const Vegetarian = () => {
+  const { data, isLoading, isError } = useGetFilterByCatagoriesQuery('Vegetarian')
 
+  const nav = useNavigate()
 
   if (isLoading) {
     return <div className='w-[32%] mx-auto mt-14'>
@@ -16,17 +16,17 @@ export const Seafood = () => {
     </div>
   }
 
-  const seafoodData = data?.meals.slice(0, 3);
+  const vegetarianData = data?.meals.slice(0, 3);
 
   return (
     <div className='container'>
       <div className='flex justify-between flex-wrap gap-4'>
-        <h3 className='text-3xl font-semibold text-blue-gray-900'>Seafood Delicacy</h3>
+        <h3 className='text-3xl font-semibold text-blue-gray-900'>Vegetarian Items</h3>
         <NavLink to='./Datashow' className='bg-[#ff642f] text-white font-medium border-solid border-2 border-sky-500 py-1 px-4 rounded-md mb-4'>View All</NavLink>
       </div>
       <div className='grid-card my-5'>
         {
-          seafoodData && seafoodData.map((data) => {
+          vegetarianData && vegetarianData.map((data) => {
             return <div key={data.idMeal} className='rounded-xl shadow-xl cursor-pointer'
               onClick={() => {
                 nav(`/recipes/${data.idMeal}`, { state: data });
@@ -45,4 +45,4 @@ export const Seafood = () => {
   )
 }
 
-export default Seafood
+export default Vegetarian

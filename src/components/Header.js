@@ -1,75 +1,96 @@
 import React, { useState } from 'react'
 import { NavLink, useNavigate } from "react-router-dom";
 import logo from '../Image/Header-logo.png'
+import { useFormik } from 'formik';
 const Header = () => {
-  
-    const [isOpen, setIsopen] = useState(false);
 
+  const [isOpen, setIsopen] = useState(true);
+  const [searchOpen, setSearchOpen] = useState(true)
+
+  const nav = useNavigate();
+  const formik = useFormik({
+    initialValues: {
+      search: ''
+    },
+    onSubmit: (val) => {
+      nav(`recipes/search/${val.search}`)
+    }
+  })
   const navs = [
     {
       label: 'Home',
-      path:'Home'
+      path: '/'
 
-    }, 
+    },
     {
       label: 'Recipe Page',
-      path:'Home'
+      path: [
+        {
+          label: 'SeaFood',
+          path: 'SeaFood'
+        }
+      ]
 
     },
     {
       label: 'About',
-      path:'About'
+      path: 'about'
 
     },
     {
       label: 'Blog',
-      path:'blog'
+      path: 'blog'
 
     },
     {
       label: 'Contact Us',
-      path:'contact'
+      path: 'contact'
 
     },
-    
+
   ]
 
   return (
-    <div className='relative sm:shadow-xl sm:fixed top-0 sm:w-[100%] sm:bg-[#FFFFFF] sm:z-50'>
-       <div className='py-4' style={{background:'#e2e2e2'}}>
-          <div className='container | flex justify-between items-center'> 
-            <div className={`space-x-4 sm:absolute sm:bottom-0 right-5 sm:mb-4 ${isOpen ? 'sm:hidden' : 'block'}`}>
-                <a href='#'><i className="fa-brands fa-facebook-f"></i></a>
-                <a href='#'><i className="fa-brands fa-twitter"></i></a>
-                <a href='#'><i className="fa-brands fa-instagram"></i></a>
-            </div> 
-            <div className='space-x-6 flex items-center sm:justify-between sm:w-[100%]'>
-              <span className=''>
-                <i className="fa-solid fa-magnifying-glass"></i>
-              </span>
-              <div className='hidden sm:block'>
-              <NavLink>
-                <img src={logo} className='w-[100px]'></img>
-              </NavLink>
-              </div>
-              <div className='hidden sm:block'>
-                <button onClick={()=>setIsopen(!isOpen)}>{isOpen ?<i className="fa-solid fa-bars fa-xl"></i> : <i class="fa-solid fa-xmark fa-xl"></i>}</button>
-              </div>
-              <button className={`border-solid border-2 border-gray-400 py-1 px-7 rounded font-semibold text-xs hover:scale-105 sm:absolute bottom-0 left-0 sm:mb-4  ${isOpen ? 'sm:hidden' : 'block'}`}>Login</button>
+    <div className='relative md:shadow-xl md:fixed top-0 md:w-[100%] md:bg-[#FFFFFF] md:z-50'>
+      <form onSubmit={formik.handleSubmit} className={`h-[50px] mx-auto container ${searchOpen ? 'hidden' : 'block'}`}>
+        <div className='flex items-center border-b-[2px] border-black'>
+          <input type="text"
+            name='search'
+            placeholder='Search'
+            value={formik.values.search}
+            onChange={formik.handleChange}
+            className='w-[98%] h-[50px]  text-black text-lg outline-none' />
+          <button type='submit' onClick={() => setSearchOpen(!searchOpen)}><i className="fa-solid fa-xmark"></i></button>
+
+        </div>
+      </form>
+      <div className='relative py-6 md:bg-[#e2e2e2]'>
+        <div className='container | flex justify-between items-center'>
+          <div className=''>
+            <NavLink to="/">
+              <img src={logo} className='w-[200px] md:w-[150px]' alt='Company Logo'></img>
+            </NavLink>
+          </div>
+          <div className={`flex w-full justify-between md:flex-col md:absolute md:top-[3.5rem] md:items-start md:pb-[3rem] md:mt-[2rem] md:bg-[#e2e2e2] md:left-0 md:w-full gap-7 ${isOpen ? 'md:hidden' : 'flex'}`}>
+            <nav className={`navigation | flex justify-center w-full gap-6 md:flex-col md:pl-6 md:pt-4`}>
+              {navs.map((n, i) => {
+                return <NavLink className='text-base font-bold hover:scale-105' to={n.path} key={i}>{n.label}</NavLink>
+              })}
+            </nav>
+            <hr className='hidden w-[95%] mx-auto h-[2px] bg-black md:block md:p-0'></hr>
+            <div className='space-x-6 flex items-center md:w-[80%] md:justify-between md:mx-auto'>
+              <button className='' >
+                <i className="fa-solid fa-magnifying-glass" onClick={() => setSearchOpen(!searchOpen)}></i>
+              </button>
+              <button className='border-solid border-2 border-gray-400 py-1 px-7 rounded font-semibold text-xs hover:scale-105'>Login</button>
             </div>
           </div>
-       </div>
-        <div className='flex justify-center py-10 sm:hidden'>
-            <NavLink>
-              <img src={logo}></img>
-            </NavLink>
+          <div className='hidden md:block'>
+            <button onClick={() => setIsopen(!isOpen)}>{isOpen ? <i className="fa-solid fa-bars fa-xl"></i> : <i className="fa-solid fa-xmark fa-xl"></i>}</button>
+          </div>
         </div>
-       <nav className={`navigation | flex justify-center gap-6 sm:flex-col sm:items-start sm:pb-[4rem] sm:pl-6 sm:pt-4 ${isOpen ? 'sm:hidden' : 'flex '}`}>
-            {navs.map((n, i)=>{
-              return <NavLink className='text-base font-bold hover:scale-105' to={n.path} key={i}>{n.label}</NavLink>
-            })}
-            <hr className='hidden sm:block w-[95%] h-[2px] bg-black '></hr>
-       </nav>
+      </div>
+
     </div>
   )
 }

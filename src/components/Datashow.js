@@ -1,14 +1,16 @@
 import React from 'react'
 import { useGetFilterByCatagoriesQuery } from '../features/foodApi'
-import { NavLink } from 'react-router-dom'
+import { useParams } from 'react-router'
 import { useNavigate } from 'react-router';
 import Error from './Error';
 
+const Datashow = () => {
+  const { strCategory } = useParams()
+  const { data, isError, isLoading } = useGetFilterByCatagoriesQuery(strCategory)
 
-export const Seafood = () => {
-  const { data, isLoading, isError } = useGetFilterByCatagoriesQuery('Seafood')
   const nav = useNavigate()
 
+  console.log(strCategory)
 
   if (isLoading) {
     return <div className='w-[32%] mx-auto mt-14'>
@@ -16,17 +18,15 @@ export const Seafood = () => {
     </div>
   }
 
-  const seafoodData = data?.meals.slice(0, 3);
-
+  const catagoryData = data?.meals;
   return (
-    <div className='container'>
-      <div className='flex justify-between flex-wrap gap-4'>
-        <h3 className='text-3xl font-semibold text-blue-gray-900'>Seafood Delicacy</h3>
-        <NavLink to='./Datashow' className='bg-[#ff642f] text-white font-medium border-solid border-2 border-sky-500 py-1 px-4 rounded-md mb-4'>View All</NavLink>
+    <div className='container mt-[4rem]  md:mt-[8rem]'>
+      <div className='mb-[2rem]'>
+        <h3 className='text-4xl font-bold text-blue-gray-900'>{strCategory} Items</h3>
       </div>
       <div className='grid-card my-5'>
         {
-          seafoodData && seafoodData.map((data) => {
+          catagoryData && catagoryData.map((data) => {
             return <div key={data.idMeal} className='rounded-xl shadow-xl cursor-pointer'
               onClick={() => {
                 nav(`/recipes/${data.idMeal}`, { state: data });
@@ -41,8 +41,9 @@ export const Seafood = () => {
         }
       </div>
       <Error error={isError} />
+
     </div>
   )
 }
 
-export default Seafood
+export default Datashow

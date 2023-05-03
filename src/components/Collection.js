@@ -1,28 +1,44 @@
 import React from 'react'
-import { useGetCollectionFoodQuery } from '../features/foodApi'
+import { useGetMealsByCategoryQuery } from '../features/foodApi'
+import { useNavigate } from 'react-router';
+import Error from './Error';
 
-const Collection = () => {
+const Popular = () => {
+  const { data, isError, isLoading } = useGetMealsByCategoryQuery()
 
-    const {data, isLoading, isError} = useGetCollectionFoodQuery('filter.php')
+  const nav = useNavigate()
+
+
+  if (isLoading) {
+    return <div className='w-[32%] mx-auto mt-14'>
+      <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_x62chJ.json" background="transparent" speed="1" loop autoplay></lottie-player>
+    </div>
+  }
+
+  const catagories = data?.categories.slice(0, 12);
 
   return (
-    <div className='container'>
-        <h3 className='text-3xl font-semibold text-blue-gray-900 my-6'>Hand-Picked Collections</h3>
-        <div className='grid-card'>
-            {
-                data && data?.meals.map((data)=>{
-                    return <div key={data.idMeal} className='rounded-xl shadow-xl cursor-pointer'>
-                            <img src={data.strMealThumb} alt="" />
-                            <div className='p-5 my-0'>
-                                <h4 className='text-xl font-medium text-blue-gray-900'>{data.strMeal}</h4>
-                             </div>
-                        </div>
-                })
-            }
-        </div>
-
+    <div className='container mt-[4rem]'>
+      <h3 className='text-3xl font-semibold text-blue-gray-900'>Popular Catagories</h3>
+      <div className='grid-card my-7 cursor-pointer'>
+        {
+          catagories && catagories.map((data) => {
+            return <div key={data.idCategory} className='flex flex-col gap-3 items-center cursor-pointer'
+              onClick={() => {
+                nav(`/recipes/catagory/${data.strCategory}`, { state: data });
+              }}
+            >
+              <div className=''>
+                <img src={data.strCategoryThumb} alt="" className='w-full transform transition duration-500 hover:scale-125 sm:hover:scale-100' />
+              </div>
+              <h4 className='font-bold text-base'>{data.strCategory}</h4>
+            </div>
+          })
+        }
+      </div>
+      <Error error={isError} />
     </div>
   )
 }
 
-export default Collection
+export default Popular
