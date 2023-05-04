@@ -19,10 +19,10 @@ export const Vegetarian = () => {
   const vegetarianData = data?.meals.slice(0, 3);
 
   return (
-    <div className='container'>
+    <div className='container mt-[3rem]'>
       <div className='flex justify-between flex-wrap gap-4'>
         <h3 className='text-3xl font-semibold text-blue-gray-900'>Vegetarian Items</h3>
-        <NavLink to='./Datashow' className='bg-[#ff642f] text-white font-medium border-solid border-2 border-sky-500 py-1 px-4 rounded-md mb-4'>View All</NavLink>
+        <NavLink to='./vegetarian' className='bg-[#ff642f] text-white font-medium border-solid border-2 border-sky-500 py-1 px-4 rounded-md mb-4'>View All</NavLink>
       </div>
       <div className='grid-card my-5'>
         {

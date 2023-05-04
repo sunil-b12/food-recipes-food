@@ -2,7 +2,6 @@ import React from 'react'
 import { useGetFilterByCatagoriesQuery } from '../features/foodApi'
 import { NavLink } from 'react-router-dom'
 import { useNavigate } from 'react-router';
-import Error from './Error';
 
 
 export const Seafood = () => {
@@ -10,6 +9,7 @@ export const Seafood = () => {
   const nav = useNavigate()
 
 
+  
   if (isLoading) {
     return <div className='w-[32%] mx-auto mt-14'>
       <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_x62chJ.json" background="transparent" speed="1" loop autoplay></lottie-player>
@@ -22,7 +22,7 @@ export const Seafood = () => {
     <div className='container'>
       <div className='flex justify-between flex-wrap gap-4'>
         <h3 className='text-3xl font-semibold text-blue-gray-900'>Seafood Delicacy</h3>
-        <NavLink to='./Datashow' className='bg-[#ff642f] text-white font-medium border-solid border-2 border-sky-500 py-1 px-4 rounded-md mb-4'>View All</NavLink>
+        <NavLink to='./seafood' className='bg-[#ff642f] text-white font-medium border-solid border-2 border-sky-500 py-1 px-4 rounded-md mb-4'>View All</NavLink>
       </div>
       <div className='grid-card my-5'>
         {
@@ -40,7 +40,6 @@ export const Seafood = () => {
           })
         }
       </div>
-      <Error error={isError} />
     </div>
   )
 }

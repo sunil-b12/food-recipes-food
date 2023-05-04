@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { NavLink, useNavigate } from "react-router-dom";
 import logo from '../Image/Header-logo.png'
 import { useFormik } from 'formik';
+import Navbar from './Navbar';
 const Header = () => {
 
   const [isOpen, setIsopen] = useState(true);
@@ -16,39 +17,6 @@ const Header = () => {
       nav(`recipes/search/${val.search}`)
     }
   })
-  const navs = [
-    {
-      label: 'Home',
-      path: '/'
-
-    },
-    {
-      label: 'Recipe Page',
-      path: [
-        {
-          label: 'SeaFood',
-          path: 'SeaFood'
-        }
-      ]
-
-    },
-    {
-      label: 'About',
-      path: 'about'
-
-    },
-    {
-      label: 'Blog',
-      path: 'blog'
-
-    },
-    {
-      label: 'Contact Us',
-      path: 'contact'
-
-    },
-
-  ]
 
   return (
     <div className='relative md:shadow-xl md:fixed top-0 md:w-[100%] md:bg-[#FFFFFF] md:z-50'>
@@ -72,11 +40,7 @@ const Header = () => {
             </NavLink>
           </div>
           <div className={`flex w-full justify-between md:flex-col md:absolute md:top-[3.5rem] md:items-start md:pb-[3rem] md:mt-[2rem] md:bg-[#e2e2e2] md:left-0 md:w-full gap-7 ${isOpen ? 'md:hidden' : 'flex'}`}>
-            <nav className={`navigation | flex justify-center w-full gap-6 md:flex-col md:pl-6 md:pt-4`}>
-              {navs.map((n, i) => {
-                return <NavLink className='text-base font-bold hover:scale-105' to={n.path} key={i}>{n.label}</NavLink>
-              })}
-            </nav>
+            <Navbar />
             <hr className='hidden w-[95%] mx-auto h-[2px] bg-black md:block md:p-0'></hr>
             <div className='space-x-6 flex items-center md:w-[80%] md:justify-between md:mx-auto'>
               <button className='' >

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router';
 import Error from './Error';
 
 const Popular = () => {
+  
   const { data, isError, isLoading } = useGetMealsByCategoryQuery()
 
   const nav = useNavigate()
