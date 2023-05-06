@@ -7,7 +7,7 @@ import Error from './Error';
 
 const Search = () => {
   const { search } = useParams();
-  const { data, isError,error } = useGetSearchMealsQuery(search)
+  const { data, isLoading } = useGetSearchMealsQuery(search)
 
   const nav = useNavigate()
 
@@ -15,15 +15,13 @@ const Search = () => {
     window.scrollTo(0, 0);
   }, [search]);
 
-
-  
-  if (isError) {
+  if (isLoading) {
     return <div className='w-[32%] mx-auto mt-14'>
-      <h1>Recipes not Found</h1>
+      <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_x62chJ.json" background="transparent" speed="1" loop autoplay></lottie-player>
     </div>
   }
 
-  console.log(error)
+
   return (
     <div className='container mt-[4rem]  md:mt-[8rem]'>
       <div className='mb-[2rem]'>
@@ -45,8 +43,6 @@ const Search = () => {
           })
         }
       </div>
-      <Error error={isError} />
-
     </div>
   )
 }

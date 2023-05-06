@@ -13,10 +13,15 @@ const Header = () => {
     initialValues: {
       search: ''
     },
-    onSubmit: (val) => {
+    onSubmit: (val, { resetForm }) => {
+      resetForm()
       nav(`recipes/search/${val.search}`)
+
     }
+
   })
+
+  console.log(formik)
 
   return (
     <div className='relative md:shadow-xl md:fixed top-0 md:w-[100%] md:bg-[#FFFFFF] md:z-50'>
@@ -28,7 +33,7 @@ const Header = () => {
             value={formik.values.search}
             onChange={formik.handleChange}
             className='w-[98%] h-[50px]  text-black text-lg outline-none' />
-          <button type='submit' onClick={() => setSearchOpen(!searchOpen)}><i className="fa-solid fa-xmark"></i></button>
+          <button><i className="fa-solid fa-xmark" onClick={formik.handleReset}></i></button>
 
         </div>
       </form>
