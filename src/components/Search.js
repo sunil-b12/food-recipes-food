@@ -13,6 +13,7 @@ const Search = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+
   }, [search]);
 
   if (isLoading) {
@@ -22,6 +23,7 @@ const Search = () => {
   }
 
 
+
   return (
     <div className='container mt-[4rem]  md:mt-[8rem]'>
       <div className='mb-[2rem]'>
@@ -29,7 +31,9 @@ const Search = () => {
       </div>
       <div className='grid-card my-5'>
         {
-          data && data?.meals.map((data) => {
+          data.meals === null ?  
+          <h2 className='mt-[3rem] font-semibold'>No Search Result Found.......</h2>
+          : data && data?.meals.map((data) => {
             return <div key={data.idMeal} className='rounded-xl shadow-xl cursor-pointer'
               onClick={() => {
                 nav(`/recipes/${data.idMeal}`, { state: data });

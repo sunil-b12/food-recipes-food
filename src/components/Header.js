@@ -21,7 +21,6 @@ const Header = () => {
 
   })
 
-  console.log(formik)
 
   return (
     <div className='relative md:shadow-xl md:fixed top-0 md:w-[100%] md:bg-[#FFFFFF] md:z-50'>

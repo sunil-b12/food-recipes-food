@@ -10,7 +10,6 @@ const Datashow = () => {
 
   const nav = useNavigate()
 
-  console.log(strCategory)
 
   if (isLoading) {
     return <div className='w-[32%] mx-auto mt-14'>

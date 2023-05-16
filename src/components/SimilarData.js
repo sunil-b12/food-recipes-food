@@ -21,7 +21,6 @@ if (isLoading) {
 
   const categoryData = data?.meals.slice(0, 8);
 
-  console.log(categoryData)
 
   return (
     <div className='mt-[5rem]'>
